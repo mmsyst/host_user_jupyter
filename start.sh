@@ -41,4 +41,4 @@ exec "\$@"
 _EOT_
 chmod 0777 ./tmp/entrypoint.sh
 DOCKER_BUILDKIT=1 docker build --no-cache -t custom-notebook:latest -f ./Dockerfile .
-docker-compose up -d
+docker-compose up
