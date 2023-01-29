@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  ubuntu:
+    image: custom-notebook:latest
+    user: root
+    entrypoint: /tmp/entrypoint.sh
+    ports:
+      - "8888:8888"
+volumes:
+  app-cache:
