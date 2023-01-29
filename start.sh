@@ -6,6 +6,8 @@ export TMP_UID=$(id -u $USER)
 export TMP_USER=$(whoami)
 export TMP_GROUPS=$(id -Gn $USER)
 export TMP_GIDS=$(id -G $USER)
+# user password
+export TMP_USER_PASS=$(openssl rand -base64 12)
 mkdir -p ./tmp
 cat << _EOT_ | tee ./tmp/entrypoint.sh
 #!/bin/bash
@@ -21,7 +23,7 @@ HOST_USER=${TMP_USER}
 HOST_UID=${TMP_UID}
 HOST_GROUPS=(${TMP_GROUPS})
 HOST_GIDS=(${TMP_GIDS})
-PASSWORD=testpass
+PASSWORD=${TMP_USER_PASS}
 adduser \${HOST_USER} --uid \${HOST_UID} --disabled-password --gecos "" -gid \${TMP_GID}
 for ((i = 0; i < \${#HOST_GROUPS[@]}; i++)) {
     groupadd -g \${HOST_GIDS[i]} \${HOST_GROUPS[i]}
